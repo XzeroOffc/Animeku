@@ -120,12 +120,16 @@ async function loadEpisodeInfo(url, title) {
     if (sources.length) {
       const play = document.createElement("button");
       play.className = "episode-play"; play.type = "button"; play.textContent = "Putar episode ▶";
-      play.addEventListener("click", () => playVideo(sources, episodeTitle)); output.append(play);
+      play.addEventListener("click", () => { dialog.close(); playVideo(sources, episodeTitle); }); output.append(play);
+    } else if (getEmbeddableStream(result?.stream)) {
+      const play = document.createElement("button");
+      play.className = "episode-play"; play.type = "button"; play.textContent = "Putar di situs ▶";
+      play.addEventListener("click", () => { dialog.close(); playEmbedded(result.stream, episodeTitle); }); output.append(play);
     } else {
       const note = document.createElement("small");
       note.textContent = result?.stream
-        ? "Link dari API ini membuka halaman player pihak ketiga, bukan URL video langsung. Agar bisa diputar di sini dengan pilihan resolusi, API perlu menyediakan URL video HLS atau MP4 yang boleh digunakan."
-        : "Respons API ini tidak menyertakan URL video. Agar bisa diputar di sini dengan pilihan resolusi, API perlu menyediakan URL video HLS atau MP4 yang boleh digunakan.";
+        ? "Player ini tidak dapat disematkan dari domain ini. Minta penyedia player mengizinkan domain streaming-yorunime.vercel.app."
+        : "Respons API ini tidak menyertakan URL video atau player yang bisa disematkan.";
       output.append(note);
     }
   } catch (error) { output.textContent = `Info episode belum tersedia: ${error.message}`; }
@@ -139,12 +143,35 @@ function getAuthorizedSources(data) {
   }
   return sources;
 }
+function getEmbeddableStream(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" && ["desustream.com", "www.desustream.com"].includes(url.hostname) ? url.href : "";
+  } catch { return ""; }
+}
+function playEmbedded(url, title) {
+  const embedUrl = getEmbeddableStream(url);
+  if (!embedUrl) return;
+  const player = document.querySelector("#video-player");
+  const frame = document.querySelector("#embedded-player");
+  const shell = document.querySelector("#player-shell");
+  const toolbar = document.querySelector("#player-toolbar");
+  const qualityLabel = document.querySelector("#quality-select").closest("label");
+  player.pause(); player.removeAttribute("src"); player.load();
+  player.hidden = true; frame.src = embedUrl; frame.hidden = false;
+  toolbar.hidden = false; qualityLabel.hidden = true;
+  document.querySelector("#player-caption").textContent = "Sedang memutar: " + title + " · atur resolusi dari kontrol player";
+  shell.scrollIntoView({ behavior: "smooth", block: "center" });
+}
 function playVideo(sources, title) {
   if (!Array.isArray(sources) || !sources.length) return;
   const player = document.querySelector("#video-player");
+  const frame = document.querySelector("#embedded-player");
   const shell = document.querySelector("#player-shell");
   const toolbar = document.querySelector("#player-toolbar");
   const select = document.querySelector("#quality-select");
+  frame.hidden = true; frame.removeAttribute("src");
+  select.closest("label").hidden = false;
   document.querySelector("#player-frame").hidden = true;
   player.hidden = false; toolbar.hidden = false; select.replaceChildren();
   sources.forEach((source, index) => { const option = document.createElement("option"); option.value = String(index); option.textContent = source.label; option.dataset.url = source.url; select.append(option); });
