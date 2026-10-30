@@ -34,7 +34,8 @@ http.createServer(async (req, res) => {
       return res.end(JSON.stringify({ status: false, message: error.message || "Feed anime tidak dapat dihubungi." }));
     }
   }
-  const filePath = pathname === "/" ? path.join(root, "index.html") : path.join(root, pathname.replace(/^\/+/, ""));
+  const assetName = pathname === "/styles.css" || pathname === "/app.js" ? path.basename(pathname) : "";
+  const filePath = pathname === "/" ? path.join(root, "index.html") : assetName ? path.join(root, "public", assetName) : path.join(root, pathname.replace(/^\/+/, ""));
   const relativePath = path.relative(root, filePath);
   if (relativePath.startsWith("..") || path.isAbsolute(relativePath)) { res.writeHead(403); return res.end("Forbidden"); }
   fs.readFile(filePath, (error, content) => {

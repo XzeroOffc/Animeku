@@ -4,6 +4,7 @@
   "private": true,
   "description": "Anime schedule catalog with optional authorized video playback",
   "scripts": {
+    "build": "node build.js",
     "start": "node server.js"
   },
   "engines": {

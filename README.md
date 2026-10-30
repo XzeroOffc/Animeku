@@ -14,11 +14,11 @@ Buka `http://localhost:3000`. Di Termux, jalankan `pkg install nodejs-lts` terle
 
 ## Vercel
 
-Import folder/repository ini di Vercel. `vercel.json` dan fungsi proxy `api/anime.js` sudah disertakan.
+Import folder/repository ini di Vercel. Build command `npm run build` dan output directory `dist` sudah diatur di `vercel.json`.
 
 ## Netlify
 
-Import repository di Netlify. `netlify.toml` mengatur publish directory dan fungsi proxy.
+Import repository di Netlify. `netlify.toml` menjalankan build dan mengatur publish directory `dist` serta fungsi proxy.
 
 ## Docker / Pterodactyl berbasis container
 
