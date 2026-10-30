@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff7e9">
+  <meta name="description" content="Temukan anime berikutnya di AniKatalog.">
+  <title>AniKatalog — Temukan anime berikutnya</title>
+  <link rel="preconnect" href="https://api.ikyyxd.my.id">
+  <link rel="preconnect" href="https://otakudesu.blog">
+  <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#atas" aria-label="AniKatalog beranda"><span class="brand-icon">あ</span><span>Ani<span class="brand-pink">Katalog</span></span></a>
+    <nav><a class="nav-active" href="#katalog">Katalog</a><a href="#jadwal">Jadwal</a><a href="#tentang">Tentang</a></nav>
+    <a class="header-cta" href="https://anilist.co/search/anime" target="_blank" rel="noreferrer">Jelajahi <span>↗</span></a>
+  </header>
+  <main id="atas">
+    <section class="intro">
+      <div><p class="eyebrow"><span class="eyebrow-star">✳</span> KATALOG ANIME PILIHAN</p><h1>Cari tontonan<br>berikutnya<span class="title-dot">.</span></h1><p class="intro-copy">Jelajahi judul anime dan temukan cerita yang cocok buatmu.</p></div>
+      <div class="intro-sticker" aria-hidden="true"><span>アニメ</span><b>!</b><small>PILIH · SIMPAN · TONTON</small></div>
+    </section>
+    <section class="schedule-panel" id="jadwal">
+      <div class="catalog-heading"><div><p class="eyebrow">JADWAL MINGGUAN</p><h2>Anime per hari</h2></div><span class="schedule-source">DARI API</span></div>
+      <div id="schedule-days" class="schedule-days"></div>
+      <div id="schedule-list" class="schedule-list" aria-live="polite"></div>
+    </section>
+    <section class="catalog" id="katalog">
+      <div class="catalog-heading"><div><p class="eyebrow">DARI KATALOG</p><h2>Semua anime <span id="result-count" class="count-badge">—</span></h2></div><button id="refresh" class="refresh" aria-label="Muat ulang katalog" title="Muat ulang">↻</button></div>
+      <div class="toolbar"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Cari judul anime..." aria-label="Cari anime"></label><div class="filters" role="group" aria-label="Filter status"><button class="filter active" data-filter="all">Semua</button><button class="filter" data-filter="ongoing">Berjalan</button><button class="filter" data-filter="completed">Selesai</button><button class="filter" data-filter="favorites">♡ Favorit</button></div></div>
+      <div id="notice" class="notice" role="status" hidden></div>
+      <div id="anime-grid" class="anime-grid" aria-live="polite"></div>
+      <div id="empty-state" class="empty-state" hidden><span>⌕</span><h3>Anime belum ditemukan</h3><p>Coba kata kunci atau filter yang berbeda.</p></div>
+      <a class="more-button" href="https://anilist.co/search/anime" target="_blank" rel="noreferrer">Muat anime lainnya <span>＋</span></a>
+    </section>
+    <section class="callout" id="tentang"><div class="alert-icon">!</div><div class="callout-copy"><h2>Siap pilih tontonan?</h2><p>AniKatalog membantumu menemukan anime dan cuplikan resminya. Ketersediaan episode penuh bergantung pada layanan berlisensi di wilayahmu.</p><a href="https://anilist.co/search/anime" target="_blank" rel="noreferrer" class="anilist-button">Buka AniList <span>↗</span></a></div></section>
+    <section class="player-section"><div class="player-title"><p class="eyebrow">RUANG TONTON</p><h2>Pemutar video</h2><p>Pilih kualitas jika sumber resmi menyediakan beberapa resolusi. Video tetap proporsional saat layar penuh.</p></div><div class="player-area"><div id="player-shell" class="player-shell"><div id="player-frame" class="player-frame"><span class="play-symbol">▶</span><b>PEMUTAR ANIKATALOG</b><small>Belum ada video untuk diputar</small></div><video id="video-player" class="video-player" controls playsinline hidden></video></div><div id="player-toolbar" class="player-toolbar" hidden><label>KUALITAS <select id="quality-select" aria-label="Pilih resolusi video"></select></label><button id="fullscreen-button" type="button">⛶ Layar penuh</button></div></div><p id="player-caption" class="player-caption"></p></section>
+  </main>
+  <footer><a class="brand footer-brand" href="#atas"><span class="brand-icon">あ</span><span>Ani<span class="brand-pink">Katalog</span></span></a><p>Katalog anime untuk menemukan tontonan berikutnya.</p><p class="data-credit">Data jadwal dari API anime · <a href="https://anilist.co" target="_blank" rel="noreferrer">AniList</a></p></footer>
+  <dialog id="detail-dialog" class="detail-dialog"><button class="dialog-close" aria-label="Tutup">×</button><div id="detail-body"></div></dialog>
+  <script src="/public/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "yoru-anime",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Anime schedule catalog with optional authorized video playback",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
