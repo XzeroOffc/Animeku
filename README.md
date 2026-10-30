@@ -14,7 +14,7 @@ Buka `http://localhost:3000`. Di Termux, jalankan `pkg install nodejs-lts` terle
 
 ## Vercel
 
-Import folder/repository ini di Vercel. Build command `npm run build` dan output directory `dist` sudah diatur di `vercel.json`.
+Import folder/repository ini di Vercel. Pilih folder proyek yang berisi `index.html`, `api/`, dan `vercel.json` sebagai Root Directory. `vercel.json` mengatur Framework Preset ke Other, menjalankan `npm run build`, dan menyajikan folder `dist`. Jangan pilih folder `public` sebagai Root Directory.
 
 ## Netlify
 
